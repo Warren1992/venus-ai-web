@@ -1,1 +1,1 @@
-Venus AI Web v3.2 - Lower Composer Below Empty Chat Icon
+Venus AI Web v3.3 - Fixed Bottom Layout After Model Load

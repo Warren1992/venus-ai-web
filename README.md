@@ -1,33 +1,36 @@
-# Venus AI Web v3.2 — Empty Chat Lowered Layout
+# Venus AI Web v3.3 — Fixed Bottom Layout
 
-This build starts from v3.1 and adjusts the empty chat screen layout.
+This build fixes the layout jump that happened immediately after the local model finished loading.
 
-## New cosmetic change
+## What was happening
 
-On the empty chat screen:
+The app used four CSS grid rows:
 
-- keeps the centered Venus icon as the main focus
-- visually lowers the composer area by moving the icon section upward
-- makes everything below the Venus icon feel pushed down toward the bottom of the screen
-- preserves the header, LOCAL • READY badge, composer, footer text, and bottom navigation
+1. Header
+2. Model loading strip
+3. Main chat area
+4. Bottom navigation
 
-## Existing features preserved
+When the model loading strip became hidden, browser grid auto-placement moved the
+main chat and bottom navigation into the wrong rows. The bottom navigation ended
+up occupying the flexible `1fr` row, becoming extremely tall and making the
+composer appear to jump upward toward the Venus icon.
 
-- automatic SmolLM2 135M local text model
-- source-grounded factual answers
-- Threads
-- Memory
-- microphone dictation
-- VOICE mode
-- Photo library
-- Take photo
-- Live camera
-- Local Vision
-- Auto Scan
-- Use Frame in Chat
-- no paid AI API
+## v3.3 fix
 
-## Deploy
+The app now uses named grid areas:
 
-Upload all files from this ZIP to the existing GitHub Pages repository root.
-Make sure `app-v3.2.js` appears in the repository.
+- `header`
+- `status`
+- `main`
+- `nav`
+
+Each section is permanently assigned to its own area.
+
+When the loading/status strip disappears:
+- its row collapses
+- the main chat area remains the flexible row
+- the composer stays at the bottom of the chat area
+- the bottom navigation stays at its normal height at the bottom of the screen
+
+All v3.2 features are preserved.

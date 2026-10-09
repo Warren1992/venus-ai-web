@@ -591,3 +591,55 @@ button { -webkit-tap-highlight-color: transparent; }
     margin-top: auto;
   }
 }
+
+
+/* Venus AI Web v3.3 — FIX: bottom controls stay at the bottom after model load
+   The loading strip can disappear without changing grid placement. */
+.app {
+  grid-template-areas:
+    "header"
+    "status"
+    "main"
+    "nav";
+  grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+}
+
+.app-header {
+  grid-area: header;
+}
+
+.model-strip {
+  grid-area: status;
+}
+
+.main-content {
+  grid-area: main;
+  min-height: 0;
+}
+
+.bottom-nav {
+  grid-area: nav;
+  align-self: end;
+}
+
+/* When the status strip disappears, its named row collapses to zero height.
+   Main remains the flexible row and the nav remains its natural height. */
+.model-strip.ready {
+  display: none;
+}
+
+/* Keep the empty-chat composer pinned to the bottom of the main chat area. */
+#chatView.view.active {
+  min-height: 0;
+  height: 100%;
+}
+
+#chatView .chat-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+#chatView .composer-wrap {
+  flex: 0 0 auto;
+  margin-top: 0 !important;
+}

@@ -1,13 +1,15 @@
-# Venus AI Web v3.2 Deploy Notes
+# Venus AI Web v3.3 Deploy Notes
 
-Upload the entire contents of this ZIP into the root of your GitHub repository.
+Upload/replace all files in your existing GitHub Pages repository.
 
-Important:
-- `index.html` must be replaced
-- `style.css` must be replaced
-- `app-v3.2.js` must be uploaded
-- GitHub Pages may take a minute or two to refresh
-- If the old look stays visible, refresh the page again after deployment
+Make sure these are updated:
+- index.html
+- style.css
+- app-v3.3.js
 
-Main cosmetic change:
-- the empty chat layout now places the content below the Venus icon lower on the screen
+After GitHub Pages deploys, refresh Venus AI.
+
+Expected behavior:
+- during model loading, the composer stays near the bottom
+- after LOCAL • READY appears, the composer and bottom navigation DO NOT jump upward
+- the Venus icon remains in the empty chat area
