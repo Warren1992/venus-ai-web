@@ -1,1 +1,1 @@
-// Legacy script. Venus AI Web v2.9 uses app-v2.9.js.
+// Legacy script. Venus AI Web v3.0 uses app-v3.0.js.

@@ -12,11 +12,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Venus AI" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest?v=2.9.2" />
+  <link rel="manifest" href="./manifest.webmanifest?v=3.0" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <title>Venus AI</title>
-  <link rel="stylesheet" href="./style.css?v=2.9.2" />
+  <link rel="stylesheet" href="./style.css?v=3.0" />
 </head>
 <body>
   <div id="app" class="app">
@@ -53,7 +53,9 @@
             <textarea id="prompt" rows="1" placeholder="Ask Venus AI anything…" autocomplete="off"></textarea>
             <button id="sendButton" class="send-button" type="submit" aria-label="Send">↑</button>
           </form>
-          <div class="composer-footer">🔒 Chat generation stays local • thread saved on device</div>
+          <div class="composer-footer">🔒 Chat generation stays local • photo analysis stays local • thread saved on device</div>
+          <input id="photoLibraryInput" class="hidden-file-input" type="file" accept="image/*" />
+          <input id="cameraCaptureInput" class="hidden-file-input" type="file" accept="image/*" capture="environment" />
         </div>
       </section>
 
@@ -119,19 +121,19 @@
           <div class="setting-line">🧠 Memory <span id="memoryCountSetting">0 saved</span></div>
           <div class="setting-line">🎙 Voice input <span id="voiceSupportSetting">Checking…</span></div>
           <div class="setting-line">🔊 Read aloud <span>On-device system voice</span></div>
-          <div class="setting-line">👁 Photo vision <span>Android app feature • web port next</span></div>
-          <div class="setting-line">📷 Live camera vision <span>Android app feature • web port next</span></div>
+          <div class="setting-line">👁 Photo vision <span id="visionStatusSetting">On demand</span></div>
+          <div class="setting-line">📷 Live camera vision <span>Available</span></div>
           <div class="setting-line">⏰ Local reminders <span>Android app feature • web port next</span></div>
         </div>
 
         <div class="privacy-note">
           <strong>Privacy</strong>
-          <p>Creative text generation, saved threads, and memory stay on this device. Factual questions can query Wikipedia. Browser voice dictation may use your device/browser speech service.</p>
+          <p>Creative text generation, photo analysis, saved threads, and memory stay on this device. Factual questions can query Wikipedia. Browser voice dictation may use your device/browser speech service.</p>
         </div>
 
         <div class="settings-card">
           <div class="card-eyebrow">ABOUT</div>
-          <div class="setting-row"><span>VENUS AI</span><strong>Web v2.9.2</strong></div>
+          <div class="setting-row"><span>VENUS AI</span><strong>Web v3.0</strong></div>
           <p class="about-copy">Private intelligence, on your device.</p>
         </div>
       </section>
@@ -165,10 +167,40 @@
     <div class="action-sheet">
       <div class="sheet-handle"></div>
       <h3>Add to chat</h3>
-      <button class="sheet-action" data-vision-action="photo" type="button"><span>🖼</span><div><strong>Photo library</strong><small>Web local vision is coming next</small></div></button>
-      <button class="sheet-action" data-vision-action="camera" type="button"><span>📷</span><div><strong>Take photo</strong><small>Web local vision is coming next</small></div></button>
-      <button class="sheet-action" data-vision-action="live" type="button"><span>◉</span><div><strong>Live camera</strong><small>Available in the Android app; web port next</small></div></button>
+      <button class="sheet-action" data-vision-action="photo" type="button"><span>🖼</span><div><strong>Photo library</strong><small>Choose a photo for local analysis</small></div></button>
+      <button class="sheet-action" data-vision-action="camera" type="button"><span>📷</span><div><strong>Take photo</strong><small>Capture with your device camera</small></div></button>
+      <button class="sheet-action" data-vision-action="live" type="button"><span>◉</span><div><strong>Live camera</strong><small>Analyze frames locally in real time</small></div></button>
       <button id="closeAttachmentSheet" class="sheet-cancel" type="button">Cancel</button>
+    </div>
+  </div>
+
+
+  <div id="liveCameraOverlay" class="live-camera-overlay hidden">
+    <div class="live-camera-header">
+      <div>
+        <strong>LIVE CAMERA</strong>
+        <small id="liveVisionStatus">Camera starting…</small>
+      </div>
+      <div class="live-camera-header-actions">
+        <button id="switchCameraButton" type="button">↻ Camera</button>
+        <button id="closeLiveCameraButton" type="button">×</button>
+      </div>
+    </div>
+
+    <div class="live-camera-frame">
+      <video id="liveVideo" autoplay playsinline muted></video>
+      <canvas id="liveCanvas" class="hidden"></canvas>
+      <div class="live-camera-badge">LOCAL VISION</div>
+    </div>
+
+    <div class="live-camera-panel">
+      <textarea id="liveQuestion" rows="2" placeholder="Ask Venus about what the camera sees…">What do you see?</textarea>
+      <div class="live-camera-actions">
+        <button id="liveAnalyzeButton" class="primary-orange" type="button">ANALYZE FRAME</button>
+        <button id="liveAutoButton" class="live-auto-button" type="button">AUTO SCAN: OFF</button>
+      </div>
+      <div id="liveResponse" class="live-camera-response">Point the camera at something, then tap ANALYZE FRAME.</div>
+      <button id="useLiveFrameButton" class="secondary-button live-use-frame" type="button">USE FRAME IN CHAT</button>
     </div>
   </div>
 
@@ -184,6 +216,6 @@
 
   <div id="toast" class="toast hidden"></div>
 
-  <script type="module" src="./app-v2.9.2.js"></script>
+  <script type="module" src="./app-v3.0.js"></script>
 </body>
 </html>

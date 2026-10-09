@@ -1,7 +1,7 @@
 {
   "name": "Venus AI",
   "short_name": "Venus AI",
-  "description": "Private local AI, source-grounded facts, memory, threads, and voice.",
+  "description": "Private local AI with source-grounded facts, memory, voice, photo vision, and live camera vision.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

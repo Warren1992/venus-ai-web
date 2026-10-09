@@ -1,66 +1,59 @@
-# Venus AI Web v2.9.2 — Android Style + Safer Chat Quality
+# Venus AI Web v3.0 — Local Vision
 
-This build ports the look and much of the behavior of the Venus AI Android app
-into the browser while preserving the working SmolLM2 135M + Wikipedia hybrid.
+Venus AI Web v3.0 adds all three image features from the Android-style + menu:
 
-## Ported from the Android app
+1. Photo library
+2. Take photo
+3. Live camera
 
-- dark Venus UI with warm orange/gold accents
-- VENUS AI header and local-model status badge
-- tap VENUS AI to start a new conversation
-- Meet Venus empty-chat screen and suggestion cards
-- Android-style chat bubbles
-- + / microphone / VOICE / send composer
-- on-device text-to-speech "Read aloud"
-- browser speech-recognition dictation when supported
-- hands-free Voice conversation mode when browser speech recognition is supported
-- persistent local conversation threads
-- Threads drawer with search, rename, and delete
-- persistent local Memory screen
-- "Remember that ..." commands save memory
-- saved memory is injected into local creative chat context
-- Settings screen with features/privacy/model status
-- automatic SmolLM2 135M loading on page open
-- canonical Wikipedia factual mode remains unchanged
+## How local web vision works
 
-## Not yet identical to Android
+The browser loads `Xenova/vit-gpt2-image-captioning` on demand with
+Transformers.js. The image stays in the browser and the local vision model
+produces a visual description.
 
-The web build currently shows the Android attachment menu, but local photo vision,
-live-camera analysis, and reliable background OS reminders are not ported yet.
-The browser version does not pretend those features are working; those buttons
-explicitly identify them as the next web port.
+For an attached photo:
+- Venus unloads the text model first to reduce browser memory pressure.
+- Local Vision describes the image.
+- The vision model is released.
+- SmolLM2 135M is restored from browser cache.
+- For simple "what do you see?" prompts, Venus returns the local visual
+  description directly.
+- For other questions, SmolLM2 is instructed to answer only from that visual
+  description and not invent details.
 
-## Deploy
+## Photo library
 
-Upload all files to the existing GitHub Pages repository root. Make sure
-`app-v2.9.js` exists and `index.html` points to it.
+Tap + -> Photo library.
+The selected image is resized locally before analysis and appears as an
+attachment preview above the composer.
 
+## Take photo
 
-## v2.9.1 hotfix
+Tap + -> Take photo.
+On mobile browsers this requests a camera capture input. The captured image is
+then attached and analyzed exactly like a library photo.
 
-The v2.9 Android-style build successfully loaded SmolLM2 135M, but creative
-generation ended with:
+## Live camera
 
-    Venus AI error: cleanText is not defined
+Tap + -> Live camera.
 
-The UI and model were working. The final response-cleanup helper was accidentally
-omitted during the Android-style rebuild.
+The live camera screen includes:
+- rear/front camera switching
+- Analyze Frame
+- Auto Scan every ~6.5 seconds
+- a local vision response panel
+- Use Frame in Chat
 
-v2.9.1 restores `cleanText()` and uses the new script filename
-`app-v2.9.1.js` so browsers do not reuse the buggy cached v2.9 JavaScript.
+Live camera keeps the vision model loaded while the camera screen is open.
+When the camera closes, Venus releases the vision model and restores the normal
+local chat model.
 
+## Important limitation
 
-## v2.9.2 chat-quality fix
+This first web vision implementation is caption-based rather than a full
+visual-question-answering model. It is useful for broad scene/object
+descriptions, but it is not intended for reliable OCR, tiny text, precise
+counting, medical interpretation, or safety-critical image analysis.
 
-The 135M model successfully generated in v2.9.1, but simple conversational
-questions could hallucinate fake dates, schedules, missed messages, and other
-personal context.
-
-v2.9.2:
-- handles common greetings / "how are you?" locally with clean deterministic replies
-- tells the local model never to invent appointments, dates, prior messages, people,
-  relationships, or personal history
-- excludes error messages from future model context
-- limits the tiny model to a small four-message context window
-- uses deterministic generation for ordinary chat and sampling only for creative tasks
-- cache-busts the main script as `app-v2.9.2.js`
+No paid AI API is used.
