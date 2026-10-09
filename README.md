@@ -1,4 +1,4 @@
-# Venus AI Web v2.9 — Android-App Style
+# Venus AI Web v2.9.1 — Android-App Style + Generation Fix
 
 This build ports the look and much of the behavior of the Venus AI Android app
 into the browser while preserving the working SmolLM2 135M + Wikipedia hybrid.
@@ -34,3 +34,17 @@ explicitly identify them as the next web port.
 
 Upload all files to the existing GitHub Pages repository root. Make sure
 `app-v2.9.js` exists and `index.html` points to it.
+
+
+## v2.9.1 hotfix
+
+The v2.9 Android-style build successfully loaded SmolLM2 135M, but creative
+generation ended with:
+
+    Venus AI error: cleanText is not defined
+
+The UI and model were working. The final response-cleanup helper was accidentally
+omitted during the Android-style rebuild.
+
+v2.9.1 restores `cleanText()` and uses the new script filename
+`app-v2.9.1.js` so browsers do not reuse the buggy cached v2.9 JavaScript.
