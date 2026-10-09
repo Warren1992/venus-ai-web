@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#080b16" />
+  <meta name="description" content="Venus AI web test with source-grounded factual answers and optional local AI." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Venus AI" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icon-180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <title>Venus AI — Web Test</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="planet">V</div>
+        <div>
+          <h1>Venus AI</h1>
+          <span>Web Test • Based on v2.2</span>
+        </div>
+      </div>
+      <button id="newChatBtn" class="ghost" type="button">New chat</button>
+    </header>
+
+    <section class="card">
+      <div class="status-row">
+        <span id="dot" class="dot"></span>
+        <div>
+          <strong id="statusTitle">Checking browser…</strong>
+          <p id="statusText">This build follows the current Qwen3 WebGPU recipe.</p>
+        </div>
+      </div>
+
+      <div class="model-box">
+        <div>
+          <span class="label">Model</span>
+          <strong>Qwen3 0.6B — stable local model</strong>
+        </div>
+        <div class="tiny">
+          Transformers.js 4.3.0 • WebGPU • q4f16 • ~570 MB
+        </div>
+      </div>
+
+      <label class="grounding-row">
+        <input id="groundingToggle" type="checkbox" checked />
+        <span>
+          <strong>Use source-grounded factual answers</strong>
+          <small>Planet entities are recognized explicitly before canonical Wikipedia lookup</small>
+        </span>
+      </label>
+
+      <button id="loadBtn" class="primary" type="button" disabled>Load Venus AI</button>
+
+      <div id="progressWrap" class="progress-wrap hidden">
+        <div class="track"><div id="bar" class="bar"></div></div>
+        <p id="progressText">Preparing…</p>
+      </div>
+    </section>
+
+    <section id="chat" class="chat"></section>
+
+    <form id="composer" class="composer">
+      <textarea id="prompt" rows="1" placeholder="Ask Venus anything…" disabled></textarea>
+      <button id="sendBtn" class="send" type="submit" disabled>➤</button>
+    </form>
+
+    <footer>
+      Local AI for creative chat • Web Test • Source-grounded facts • Local creative AI • No paid AI API
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
