@@ -6,78 +6,184 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#080b16" />
-  <meta name="description" content="Venus AI web test with source-grounded factual answers and optional local AI." />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="Venus AI — private local AI in your browser." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Venus AI" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest?v=2.8" />
+  <link rel="manifest" href="./manifest.webmanifest?v=2.9" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
-  <title>Venus AI — Web Test</title>
-  <link rel="stylesheet" href="./style.css?v=2.8" />
+  <title>Venus AI</title>
+  <link rel="stylesheet" href="./style.css?v=2.9" />
 </head>
 <body>
-  <main class="app-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="planet">V</div>
-        <div>
-          <h1>Venus AI</h1>
-          <span>Web Test v2.8 • Auto-loading local AI</span>
-        </div>
-      </div>
-      <button id="newChatBtn" class="ghost" type="button">New chat</button>
+  <div id="app" class="app">
+    <header class="app-header">
+      <button id="brandButton" class="brand-button" type="button" aria-label="Start a new chat">
+        <img class="brand-icon" src="./icon-192.png" alt="" />
+        <span class="brand-copy">
+          <strong>VENUS AI</strong>
+          <small>Private intelligence, on your device</small>
+        </span>
+      </button>
+      <span id="modelBadge" class="model-badge">STARTING</span>
     </header>
 
-    <section class="card">
-      <div class="status-row">
-        <span id="dot" class="dot"></span>
+    <div id="modelStrip" class="model-strip">
+      <div class="model-strip-row">
+        <span id="modelStripDot" class="status-dot busy"></span>
+        <span id="modelStripText">Preparing local AI…</span>
+        <button id="modelRetryButton" class="mini-link hidden" type="button">Retry</button>
+      </div>
+      <div id="modelProgress" class="model-progress"><div id="modelProgressBar"></div></div>
+    </div>
+
+    <main class="main-content">
+      <section id="chatView" class="view active">
+        <div id="chatScroll" class="chat-scroll"></div>
+
+        <div class="composer-wrap">
+          <div id="composerNotice" class="composer-notice hidden"></div>
+          <form id="composer" class="composer">
+            <button id="attachButton" class="composer-icon-button" type="button" aria-label="Add attachment">＋</button>
+            <button id="micButton" class="composer-icon-button" type="button" aria-label="Voice input">🎙</button>
+            <button id="voiceButton" class="voice-button" type="button">VOICE</button>
+            <textarea id="prompt" rows="1" placeholder="Ask Venus AI anything…" autocomplete="off"></textarea>
+            <button id="sendButton" class="send-button" type="submit" aria-label="Send">↑</button>
+          </form>
+          <div class="composer-footer">🔒 Chat generation stays local • thread saved on device</div>
+        </div>
+      </section>
+
+      <section id="memoryView" class="view page-view">
+        <div class="page-header">
+          <h2>Memory</h2>
+          <p>Information Venus keeps locally on this device.</p>
+        </div>
+        <div class="memory-on-card">
+          <span class="memory-dot"></span>
+          <div>
+            <strong>Memory is ON</strong>
+            <p>I’ll remember your preferences to give you better responses.</p>
+          </div>
+        </div>
+        <div class="section-heading">
+          <span>Saved Information</span>
+          <button id="clearMemoryButton" class="text-button danger-text" type="button">Clear all</button>
+        </div>
+        <div id="memoryList" class="memory-list"></div>
+        <form id="memoryForm" class="memory-add">
+          <input id="memoryInput" type="text" placeholder="Add a new memory" />
+          <button type="submit">ADD</button>
+        </form>
+      </section>
+
+      <section id="settingsView" class="view page-view">
+        <div class="page-header">
+          <h2>Settings</h2>
+          <p>Simple, clean, no developer clutter.</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-eyebrow">MODEL</div>
+          <div class="setting-row">
+            <span>Local model</span>
+            <strong>SmolLM2 135M Instruct</strong>
+          </div>
+          <div class="setting-row">
+            <span>Status</span>
+            <strong id="settingsModelStatus">Starting…</strong>
+          </div>
+          <button id="settingsRetryModel" class="secondary-button" type="button">RELOAD LOCAL AI</button>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-eyebrow">FEATURES</div>
+          <label class="toggle-row">
+            <span>
+              <strong>Source-grounded facts</strong>
+              <small>Canonical Wikipedia answers for factual questions</small>
+            </span>
+            <input id="groundingToggle" type="checkbox" checked />
+          </label>
+          <label class="toggle-row">
+            <span>
+              <strong>Read replies aloud</strong>
+              <small>Uses your device’s system speech voice</small>
+            </span>
+            <input id="autoSpeakToggle" type="checkbox" />
+          </label>
+          <div class="setting-line">💬 Conversation threads <span id="threadCountSetting">0 saved</span></div>
+          <div class="setting-line">🧠 Memory <span id="memoryCountSetting">0 saved</span></div>
+          <div class="setting-line">🎙 Voice input <span id="voiceSupportSetting">Checking…</span></div>
+          <div class="setting-line">🔊 Read aloud <span>On-device system voice</span></div>
+          <div class="setting-line">👁 Photo vision <span>Android app feature • web port next</span></div>
+          <div class="setting-line">📷 Live camera vision <span>Android app feature • web port next</span></div>
+          <div class="setting-line">⏰ Local reminders <span>Android app feature • web port next</span></div>
+        </div>
+
+        <div class="privacy-note">
+          <strong>Privacy</strong>
+          <p>Creative text generation, saved threads, and memory stay on this device. Factual questions can query Wikipedia. Browser voice dictation may use your device/browser speech service.</p>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-eyebrow">ABOUT</div>
+          <div class="setting-row"><span>VENUS AI</span><strong>Web v2.9</strong></div>
+          <p class="about-copy">Private intelligence, on your device.</p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-tab="chat" type="button"><span>◯</span><small>Chat</small></button>
+      <button class="nav-item" data-tab="memory" type="button"><span>✦</span><small>Memory</small></button>
+      <button class="nav-item" data-tab="settings" type="button"><span>⚙</span><small>Settings</small></button>
+      <button id="threadsButton" class="nav-item accent" type="button"><span>☰</span><small>Threads</small></button>
+    </nav>
+  </div>
+
+  <div id="drawerBackdrop" class="drawer-backdrop hidden">
+    <aside id="threadDrawer" class="thread-drawer">
+      <div class="drawer-header">
         <div>
-          <strong id="statusTitle">Checking browser…</strong>
-          <p id="statusText">This build follows the current Qwen3 WebGPU recipe.</p>
+          <h2>Threads</h2>
+          <p>Saved locally on this device</p>
         </div>
+        <button id="closeThreadsButton" class="round-close" type="button">×</button>
       </div>
+      <button id="drawerNewChatButton" class="primary-orange" type="button">NEW CONVERSATION</button>
+      <input id="threadSearch" class="thread-search" type="search" placeholder="Search conversations" />
+      <div id="threadList" class="thread-list"></div>
+      <div class="drawer-footer">Threads never leave this browser unless you choose to share them.</div>
+    </aside>
+  </div>
 
-      <div class="model-box">
-        <div>
-          <span class="label">Model</span>
-          <strong>SmolLM2 135M Instruct — ultra-light CPU/WASM local model</strong>
-        </div>
-        <div class="tiny">
-          Transformers.js 4.3.0 • CPU/WASM • q8 • ~136 MB
-        </div>
-      </div>
+  <div id="attachmentSheet" class="sheet-backdrop hidden">
+    <div class="action-sheet">
+      <div class="sheet-handle"></div>
+      <h3>Add to chat</h3>
+      <button class="sheet-action" data-vision-action="photo" type="button"><span>🖼</span><div><strong>Photo library</strong><small>Web local vision is coming next</small></div></button>
+      <button class="sheet-action" data-vision-action="camera" type="button"><span>📷</span><div><strong>Take photo</strong><small>Web local vision is coming next</small></div></button>
+      <button class="sheet-action" data-vision-action="live" type="button"><span>◉</span><div><strong>Live camera</strong><small>Available in the Android app; web port next</small></div></button>
+      <button id="closeAttachmentSheet" class="sheet-cancel" type="button">Cancel</button>
+    </div>
+  </div>
 
-      <label class="grounding-row">
-        <input id="groundingToggle" type="checkbox" checked />
-        <span>
-          <strong>Use source-grounded factual answers</strong>
-          <small>Planet entities are recognized explicitly before canonical Wikipedia lookup</small>
-        </span>
-      </label>
+  <div id="voiceOverlay" class="voice-overlay hidden">
+    <button id="closeVoiceOverlay" class="voice-close" type="button">×</button>
+    <img class="voice-planet" src="./icon-192.png" alt="" />
+    <div id="voiceStatusText" class="voice-status">Listening…</div>
+    <div class="voice-orb"><div class="voice-ring r1"></div><div class="voice-ring r2"></div><div class="voice-ring r3"></div><span>◉</span></div>
+    <p>Speak naturally. Venus will answer aloud.</p>
+    <button id="voiceStopButton" class="voice-stop" type="button">■</button>
+    <small>Tap to stop</small>
+  </div>
 
-      <button id="loadBtn" class="primary" type="button" disabled>Venus AI loads automatically</button>
+  <div id="toast" class="toast hidden"></div>
 
-      <div id="progressWrap" class="progress-wrap hidden">
-        <div class="track"><div id="bar" class="bar"></div></div>
-        <p id="progressText">Preparing…</p>
-      </div>
-    </section>
-
-    <section id="chat" class="chat"></section>
-
-    <form id="composer" class="composer">
-      <textarea id="prompt" rows="1" placeholder="Ask Venus anything…" disabled></textarea>
-      <button id="sendBtn" class="send" type="submit" disabled>➤</button>
-    </form>
-
-    <footer>
-      Local AI for creative chat • Web Test v2.8 • Auto-loading SmolLM2 135M • CPU/WASM • Source-grounded facts • No paid AI API
-    </footer>
-  </main>
-
-  <script type="module" src="./app-v2.8.js"></script>
+  <script type="module" src="./app-v2.9.js"></script>
 </body>
 </html>

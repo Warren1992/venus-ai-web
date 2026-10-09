@@ -1,1 +1,1 @@
-Venus AI Web Test v2.8 - Automatic SmolLM2 135M Loading
+Venus AI Web v2.9 - Android App Style, Threads, Memory, Voice

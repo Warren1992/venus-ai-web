@@ -1,30 +1,36 @@
-# Venus AI Web Test v2.8 — Automatic Model Loading
+# Venus AI Web v2.9 — Android-App Style
 
-v2.8 removes the need for users to manually press "Load Venus AI".
+This build ports the look and much of the behavior of the Venus AI Android app
+into the browser while preserving the working SmolLM2 135M + Wikipedia hybrid.
 
-## New behavior
+## Ported from the Android app
 
-When the page opens:
+- dark Venus UI with warm orange/gold accents
+- VENUS AI header and local-model status badge
+- tap VENUS AI to start a new conversation
+- Meet Venus empty-chat screen and suggestion cards
+- Android-style chat bubbles
+- + / microphone / VOICE / send composer
+- on-device text-to-speech "Read aloud"
+- browser speech-recognition dictation when supported
+- hands-free Voice conversation mode when browser speech recognition is supported
+- persistent local conversation threads
+- Threads drawer with search, rename, and delete
+- persistent local Memory screen
+- "Remember that ..." commands save memory
+- saved memory is injected into local creative chat context
+- Settings screen with features/privacy/model status
+- automatic SmolLM2 135M loading on page open
+- canonical Wikipedia factual mode remains unchanged
 
-1. The page renders immediately.
-2. Source-grounded factual mode is immediately available.
-3. After a short 350 ms delay, Venus AI automatically begins loading:
-   SmolLM2 135M Instruct q8 via CPU/WASM.
-4. The button becomes a loading/status indicator.
-5. Once loaded, creative prompts automatically use the local model.
+## Not yet identical to Android
 
-The button remains wired to the loader so it can still be used as a retry control
-if automatic loading fails.
+The web build currently shows the Android attachment menu, but local photo vision,
+live-camera analysis, and reliable background OS reminders are not ported yet.
+The browser version does not pretend those features are working; those buttons
+explicitly identify them as the next web port.
 
-## Why
+## Deploy
 
-A normal AI assistant should feel ready by default. Users should not need to know
-what an AI model is or manually initialize it.
-
-## Bandwidth
-
-The local model is roughly 136 MB. The first visit can therefore require a
-noticeable download. Browsers can cache the model assets, so later visits may
-be substantially faster depending on browser cache behavior.
-
-No paid AI API is used.
+Upload all files to the existing GitHub Pages repository root. Make sure
+`app-v2.9.js` exists and `index.html` points to it.
