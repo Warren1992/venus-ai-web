@@ -519,3 +519,30 @@ button { -webkit-tap-highlight-color: transparent; }
     border-left: 1px solid var(--border);
   }
 }
+
+
+/* Venus AI Web v3.1 — empty-chat cosmetic refresh */
+.hero-icon-only {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.hero-center-icon {
+  width: clamp(132px, 24vw, 220px) !important;
+  height: auto !important;
+  border-radius: 999px !important;
+  filter:
+    drop-shadow(0 0 14px rgba(117, 69, 255, 0.40))
+    drop-shadow(0 0 34px rgba(117, 69, 255, 0.24));
+  opacity: 0.98;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@media (max-width: 640px) {
+  .hero-center-icon {
+    width: clamp(138px, 34vw, 190px) !important;
+  }
+}
