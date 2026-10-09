@@ -198,11 +198,30 @@ async function loadModel() {
   }
 }
 
+function looksCreative(text) {
+  const q = text.trim().toLowerCase();
+
+  // Explicit creative/action requests should always use the local model,
+  // even if they contain factual-looking nouns such as "city", "planet",
+  // "history", or "Venus".
+  return /^(write|create|make|draft|compose|brainstorm|imagine|invent|design|develop|roleplay|rewrite|continue|finish)\b/.test(q)
+    || /\b(short story|story|fiction|poem|song|script|scene|dialogue|character|brainstorm|creative writing|roleplay|imagine|fictional|make up)\b/.test(q);
+}
+
 function looksFactual(text) {
   const q = text.trim().toLowerCase();
 
-  return /^(what|who|when|where|which|is|are|was|were|did|does|do|how many|how much|tell me about|define|explain)\b/.test(q)
-    || /\b(planet|country|city|history|science|solar system|largest|smallest|closest|capital|born|invented|discovered)\b/.test(q);
+  if (looksCreative(q)) {
+    return false;
+  }
+
+  // Direct questions and explicit fact-seeking language use grounded mode.
+  if (/^(what|who|when|where|which|is|are|was|were|did|does|do|how many|how much|tell me about|define|explain)\b/.test(q)) {
+    return true;
+  }
+
+  // Superlatives and common fact requests that may not begin with a question word.
+  return /\b(largest|smallest|closest|capital of|born in|invented by|discovered by|how old|population of|distance from)\b/.test(q);
 }
 
 function tokens(text) {

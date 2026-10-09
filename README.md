@@ -1,67 +1,54 @@
-# Venus AI Local Web v2.2 — Fixed Entity Recognition
+# Venus AI Web Test v2.3 — Mobile Routing Fix
 
-v2.1 still showed peripheral source pages even though canonical lookup was implemented.
+This build fixes the routing bug found during the first Android GitHub Pages test.
 
-## Exact bug
+## Bug found
 
-The generic entity regex was case-insensitive and too greedy.
+The prompt:
 
-For this source sentence:
+    Write a short story about a floating city on Venus.
 
-    It has a mass about two thirds that of Jupiter, largest planet in the Solar System.
+was incorrectly routed to Wikipedia factual mode because the old factual classifier
+treated the word `city` as evidence that the request was factual.
 
-it could extract:
+## Fix
 
-    two thirds that of Jupiter
+Creative/action intent now takes priority.
 
-instead of:
+Requests containing or beginning with terms such as:
 
-    Jupiter
+- write
+- create
+- make
+- draft
+- compose
+- brainstorm
+- imagine
+- invent
+- design
+- story
+- fiction
+- poem
+- script
+- scene
+- roleplay
 
-For:
+are routed to the local Qwen3 model even when they mention places, planets, cities,
+history, or other factual nouns.
 
-    Atmosphere of Mercury is the closest planet to the Sun.
+Factual questions such as:
 
-it could extract:
+    What is the largest planet in the Solar System?
 
-    Atmosphere of Mercury
+continue to use the canonical Wikipedia grounding path.
 
-instead of:
+## Mobile retest
 
-    Mercury
+After uploading this build to GitHub Pages:
 
-Canonical lookup then searched for the wrong entity, failed, and kept the original peripheral source.
+1. Load the creative AI model.
+2. Ask:
+   `Write a short story about a floating city on Venus.`
+3. It should generate creative prose locally instead of returning Wikipedia facts.
 
-## v2.2 fix
-
-For planet questions, Venus AI now recognizes the eight Solar System planet names explicitly:
-
-- Mercury
-- Venus
-- Earth
-- Mars
-- Jupiter
-- Saturn
-- Uranus
-- Neptune
-
-Superlative relationships such as largest, smallest, and closest-to-Sun are resolved against those planet names before any generic entity extraction is attempted.
-
-The generic regex is also now case-sensitive and less greedy.
-
-## Expected test results
-
-What is the planet Venus?
-- source: Venus
-
-What is the largest planet in the solar system?
-- answer: Jupiter
-- source: Jupiter
-
-Which planet is closest to the Sun?
-- answer: Mercury
-- source: Mercury (planet)
-
-Is Venus a gas giant or a rocky planet?
-- answer: terrestrial/rocky
-- source: Venus
+No paid AI API is used.
