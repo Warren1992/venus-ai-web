@@ -1,16 +1,15 @@
-# Venus AI Web v3.1 — Centered Venus Icon Empty Chat
+# Venus AI Web v3.2 — Empty Chat Lowered Layout
 
-This build keeps every working v3.0 feature and changes only the empty-chat appearance.
+This build starts from v3.1 and adjusts the empty chat screen layout.
 
-## Cosmetic change
+## New cosmetic change
 
-When a conversation has no messages:
+On the empty chat screen:
 
-- removes "Meet Venus."
-- removes the descriptive subtitle
-- removes all four suggestion buttons
-- shows the Venus icon by itself, centered in the empty chat area
-- keeps the existing header, LOCAL • READY badge, composer, footer, and bottom navigation
+- keeps the centered Venus icon as the main focus
+- visually lowers the composer area by moving the icon section upward
+- makes everything below the Venus icon feel pushed down toward the bottom of the screen
+- preserves the header, LOCAL • READY badge, composer, footer text, and bottom navigation
 
 ## Existing features preserved
 
@@ -31,4 +30,4 @@ When a conversation has no messages:
 ## Deploy
 
 Upload all files from this ZIP to the existing GitHub Pages repository root.
-Make sure `app-v3.1.js` appears in the repository.
+Make sure `app-v3.2.js` appears in the repository.

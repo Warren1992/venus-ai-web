@@ -546,3 +546,48 @@ button { -webkit-tap-highlight-color: transparent; }
     width: clamp(138px, 34vw, 190px) !important;
   }
 }
+
+
+/* Venus AI Web v3.2 — empty chat icon higher, controls feel lower */
+.hero-icon-only {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start !important;
+  padding-top: clamp(18px, 5vh, 44px) !important;
+  padding-bottom: 0 !important;
+  text-align: center;
+}
+
+.hero-center-icon {
+  width: clamp(132px, 24vw, 220px) !important;
+  height: auto !important;
+  border-radius: 999px !important;
+  filter:
+    drop-shadow(0 0 14px rgba(117, 69, 255, 0.40))
+    drop-shadow(0 0 34px rgba(117, 69, 255, 0.24));
+  opacity: 0.98;
+  user-select: none;
+  -webkit-user-drag: none;
+  margin-top: 0 !important;
+}
+
+@media (max-width: 640px) {
+  .chat-scroll {
+    padding-top: 10px;
+  }
+
+  .hero-icon-only {
+    justify-content: flex-start !important;
+    padding-top: clamp(8px, 2.5vh, 18px) !important;
+  }
+
+  .hero-center-icon {
+    width: clamp(138px, 34vw, 190px) !important;
+  }
+
+  .composer-wrap {
+    margin-top: auto;
+  }
+}
