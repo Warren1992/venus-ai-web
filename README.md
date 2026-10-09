@@ -1,54 +1,44 @@
-# Venus AI Web Test v2.3 — Mobile Routing Fix
+# Venus AI Web Test v2.4 — Safe Local AI
 
-This build fixes the routing bug found during the first Android GitHub Pages test.
+This build fixes the WebGPU generation crash found after v2.3 correctly routed
+creative prompts to the local model.
 
-## Bug found
+## What failed in v2.3
 
-The prompt:
+The creative prompt:
 
     Write a short story about a floating city on Venus.
 
-was incorrectly routed to Wikipedia factual mode because the old factual classifier
-treated the word `city` as evidence that the request was factual.
+correctly reached Qwen3, but ONNX Runtime Web/WebGPU failed with a validation
+error while creating a GPU bind group.
 
-## Fix
+## v2.4 architecture
 
-Creative/action intent now takes priority.
+Factual questions:
+- canonical Wikipedia grounding
+- no local LLM generation needed
 
-Requests containing or beginning with terms such as:
+Creative/chat requests:
+- Qwen3 0.6B
+- q8 quantization
+- CPU/WASM browser inference
+- no WebGPU dependency
+- no paid AI API
 
-- write
-- create
-- make
-- draft
-- compose
-- brainstorm
-- imagine
-- invent
-- design
-- story
-- fiction
-- poem
-- script
-- scene
-- roleplay
+CPU/WASM will usually be slower than WebGPU, but it is the safer cross-browser
+path for this prototype.
 
-are routed to the local Qwen3 model even when they mention places, planets, cities,
-history, or other factual nouns.
+## Retest
 
-Factual questions such as:
+1. Upload/overwrite the v2.4 files in the existing GitHub repository.
+2. Wait for GitHub Pages to redeploy.
+3. Refresh the public Venus AI site.
+4. Click Load Creative AI.
+5. Ask:
 
-    What is the largest planet in the Solar System?
+       Write a short story about a floating city on Venus.
 
-continue to use the canonical Wikipedia grounding path.
-
-## Mobile retest
-
-After uploading this build to GitHub Pages:
-
-1. Load the creative AI model.
-2. Ask:
-   `Write a short story about a floating city on Venus.`
-3. It should generate creative prose locally instead of returning Wikipedia facts.
+The response may take noticeably longer than the WebGPU build, especially on a
+phone. That is expected.
 
 No paid AI API is used.

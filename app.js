@@ -4,7 +4,7 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0";
 
 const MODEL_ID = "onnx-community/Qwen3-0.6B-ONNX";
-const STORAGE_KEY = "venus-ai-v22-chat";
+const STORAGE_KEY = "venus-ai-web-v24-chat";
 
 const SYSTEM_PROMPT = `You are Venus AI, a helpful general-purpose AI assistant.
 Answer directly and concisely.
@@ -143,45 +143,40 @@ async function checkWebGPU() {
 }
 
 async function loadModel() {
-  const gpu = await checkWebGPU();
-
-  if (!gpu.ok) {
-    setStatus("bad", "WebGPU isn't available", gpu.reason);
-    return;
-  }
-
   loadBtn.disabled = true;
   progressWrap.classList.remove("hidden");
   bar.style.width = "0%";
-  progressText.textContent = "Starting Qwen3 0.6B q4f16…";
+  progressText.textContent = "Starting Qwen3 0.6B q8 in safe CPU/WASM mode…";
 
   setStatus(
     "busy",
-    "Loading creative/chat AI…",
-    "Factual source answers work without the model. This loads Qwen3 for creative and conversational requests."
+    "Loading local creative AI…",
+    "Safe mode uses CPU/WASM instead of WebGPU. It is slower, but avoids the WebGPU validation crashes seen in testing."
   );
 
   try {
+    // Transformers.js runs in the browser on CPU/WASM when no `device: "webgpu"`
+    // option is supplied. q8 keeps the model reasonably compact while avoiding
+    // q4f16's WebGPU-oriented float16 cache path.
     generator = await pipeline(
       "text-generation",
       MODEL_ID,
       {
-        device: "webgpu",
-        dtype: "q4f16",
+        dtype: "q8",
         progress_callback: progressCallback,
       }
     );
 
     bar.style.width = "100%";
-    progressText.textContent = "Qwen3 0.6B q4f16 is ready.";
+    progressText.textContent = "Qwen3 0.6B q8 is ready in safe CPU/WASM mode.";
 
     setStatus(
       "good",
       "Venus AI is ready",
-      "Direct factual answers use Wikipedia. Creative/chat requests can use the local Qwen3 model."
+      "Factual answers use canonical Wikipedia sources. Creative/chat requests run locally on this device using safe CPU/WASM mode."
     );
 
-    loadBtn.textContent = "Creative AI loaded";
+    loadBtn.textContent = "Creative AI loaded — Safe mode";
     promptEl.disabled = false;
     sendBtn.disabled = false;
     promptEl.focus();
@@ -189,11 +184,13 @@ async function loadModel() {
     console.error(error);
     generator = null;
     loadBtn.disabled = false;
+
     setStatus(
       "bad",
       "Local creative AI failed to load",
-      "Source-grounded factual answers can still work. Close Firefox completely before retrying the local model."
+      "Source-grounded factual answers still work. The device may not have enough memory for the local q8 model."
     );
+
     progressText.textContent = String(error?.message || error);
   }
 }
@@ -1071,13 +1068,19 @@ async function sendMessage(text) {
     }
   } catch (error) {
     console.error(error);
-    ui.content.textContent = `Venus AI error: ${String(error?.message || error)}`;
+    const message = String(error?.message || error);
+    console.error(error);
+
+    ui.content.textContent = groundingToggle.checked && looksFactual(userText)
+      ? `Venus AI factual lookup error: ${message}`
+      : `Venus AI local-model error: ${message}`;
+
     setStatus(
       "bad",
       "Answer failed",
       groundingToggle.checked && looksFactual(userText)
         ? "The source-grounded factual lookup could not find a direct answer."
-        : "The local model could not complete this response."
+        : "The safe CPU/WASM local model could not complete this response."
     );
   } finally {
     busy = false;
@@ -1112,24 +1115,14 @@ promptEl.addEventListener("keydown", (event) => {
 
 renderMessages();
 
-// Factual source mode is immediately usable. WebGPU is only needed for local creative AI.
+// Factual source mode is immediately usable.
+// Creative AI now uses CPU/WASM safe mode, so WebGPU is not required.
 promptEl.disabled = false;
 sendBtn.disabled = false;
+loadBtn.disabled = false;
 
-checkWebGPU().then((gpu) => {
-  if (gpu.ok) {
-    loadBtn.disabled = false;
-    setStatus(
-      "good",
-      "Venus AI is ready",
-      "Source-grounded factual answers are ready now. Load Qwen3 only if you also want local creative/chat generation."
-    );
-  } else {
-    loadBtn.disabled = true;
-    setStatus(
-      "good",
-      "Source-grounded factual mode is ready",
-      "Wikipedia factual answers work without WebGPU. Local creative/chat AI is unavailable on this browser."
-    );
-  }
-});
+setStatus(
+  "good",
+  "Venus AI is ready",
+  "Source-grounded factual answers are ready now. Load Creative AI to enable local CPU/WASM creative chat."
+);
