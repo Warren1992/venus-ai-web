@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#080b16" />
   <meta name="description" content="Venus AI web test with source-grounded factual answers and optional local AI." />
@@ -9,11 +12,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Venus AI" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="manifest" href="./manifest.webmanifest?v=2.5" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <title>Venus AI — Web Test</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=2.5" />
 </head>
 <body>
   <main class="app-shell">
@@ -22,7 +25,7 @@
         <div class="planet">V</div>
         <div>
           <h1>Venus AI</h1>
-          <span>Web Test v2.4 • Safe local AI</span>
+          <span>Web Test v2.5 • Cache-busted WASM</span>
         </div>
       </div>
       <button id="newChatBtn" class="ghost" type="button">New chat</button>
@@ -71,10 +74,10 @@
     </form>
 
     <footer>
-      Local AI for creative chat • Web Test v2.4 • Safe CPU/WASM • Source-grounded facts • No paid AI API
+      Local AI for creative chat • Web Test v2.5 • Cache-busted CPU/WASM • Source-grounded facts • No paid AI API
     </footer>
   </main>
 
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app-v2.5.js"></script>
 </body>
 </html>

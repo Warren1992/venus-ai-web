@@ -1,44 +1,42 @@
-# Venus AI Web Test v2.4 — Safe Local AI
+# Venus AI Web Test v2.5 — Cache-Busted WASM
 
-This build fixes the WebGPU generation crash found after v2.3 correctly routed
-creative prompts to the local model.
+The v2.4 screenshot revealed that the browser loaded the new v2.4 HTML but was
+still executing an older cached `app.js`.
 
-## What failed in v2.3
+Evidence:
+- The page displayed the new q8 / CPU-WASM model label from v2.4 HTML.
+- The runtime failure text was the old message:
+  "Close Firefox completely before retrying the local model."
+- That message does not exist in the actual v2.4 WASM loader.
 
-The creative prompt:
+Therefore the previous test did not reliably test v2.4's CPU/WASM path.
 
+## v2.5 fix
+
+- Main JavaScript is renamed to `app-v2.5.js`.
+- `index.html` points to that new filename.
+- CSS and manifest references include `?v=2.5`.
+- Document no-cache meta hints are included.
+- The old `app.js` is no longer executed.
+- The actual v2.4 CPU/WASM q8 loader is preserved.
+
+## How to update GitHub
+
+Upload ALL v2.5 files to the repository root and overwrite existing files.
+Because `app-v2.5.js` is a new filename, make sure it appears in GitHub after
+the commit.
+
+After GitHub Pages redeploys, refresh the live site.
+
+The load progress should literally start with:
+
+    v2.5: Starting Qwen3 0.6B q8 in safe CPU/WASM mode…
+
+If it fails, the failure description should say:
+
+    v2.5 WASM loader ran, but the local q8 model failed to load.
+
+Seeing either phrase proves the browser is running the new JavaScript.
+
+Then test:
     Write a short story about a floating city on Venus.
-
-correctly reached Qwen3, but ONNX Runtime Web/WebGPU failed with a validation
-error while creating a GPU bind group.
-
-## v2.4 architecture
-
-Factual questions:
-- canonical Wikipedia grounding
-- no local LLM generation needed
-
-Creative/chat requests:
-- Qwen3 0.6B
-- q8 quantization
-- CPU/WASM browser inference
-- no WebGPU dependency
-- no paid AI API
-
-CPU/WASM will usually be slower than WebGPU, but it is the safer cross-browser
-path for this prototype.
-
-## Retest
-
-1. Upload/overwrite the v2.4 files in the existing GitHub repository.
-2. Wait for GitHub Pages to redeploy.
-3. Refresh the public Venus AI site.
-4. Click Load Creative AI.
-5. Ask:
-
-       Write a short story about a floating city on Venus.
-
-The response may take noticeably longer than the WebGPU build, especially on a
-phone. That is expected.
-
-No paid AI API is used.
