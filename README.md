@@ -1,4 +1,4 @@
-# Venus AI Web v2.9.1 — Android-App Style + Generation Fix
+# Venus AI Web v2.9.2 — Android Style + Safer Chat Quality
 
 This build ports the look and much of the behavior of the Venus AI Android app
 into the browser while preserving the working SmolLM2 135M + Wikipedia hybrid.
@@ -48,3 +48,19 @@ omitted during the Android-style rebuild.
 
 v2.9.1 restores `cleanText()` and uses the new script filename
 `app-v2.9.1.js` so browsers do not reuse the buggy cached v2.9 JavaScript.
+
+
+## v2.9.2 chat-quality fix
+
+The 135M model successfully generated in v2.9.1, but simple conversational
+questions could hallucinate fake dates, schedules, missed messages, and other
+personal context.
+
+v2.9.2:
+- handles common greetings / "how are you?" locally with clean deterministic replies
+- tells the local model never to invent appointments, dates, prior messages, people,
+  relationships, or personal history
+- excludes error messages from future model context
+- limits the tiny model to a small four-message context window
+- uses deterministic generation for ordinary chat and sampling only for creative tasks
+- cache-busts the main script as `app-v2.9.2.js`
