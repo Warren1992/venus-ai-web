@@ -1,1 +1,1 @@
-// Legacy filename. Venus AI v2.7 uses app-v2.7.js.
+// Legacy script. Venus AI v2.8 uses app-v2.8.js.

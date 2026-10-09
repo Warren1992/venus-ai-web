@@ -1,40 +1,30 @@
-# Venus AI Web Test v2.7 — Ultra-Light Local AI
+# Venus AI Web Test v2.8 — Automatic Model Loading
 
-v2.6 failed during model loading with:
+v2.8 removes the need for users to manually press "Load Venus AI".
 
-    Error in input stream
+## New behavior
 
-This is different from v2.5's `std::bad_alloc`. The v2.6 failure occurred
-while the model was still downloading/streaming.
+When the page opens:
 
-## v2.7 changes
+1. The page renders immediately.
+2. Source-grounded factual mode is immediately available.
+3. After a short 350 ms delay, Venus AI automatically begins loading:
+   SmolLM2 135M Instruct q8 via CPU/WASM.
+4. The button becomes a loading/status indicator.
+5. Once loaded, creative prompts automatically use the local model.
 
-Creative local AI now uses:
+The button remains wired to the loader so it can still be used as a retry control
+if automatic loading fails.
 
-    onnx-community/SmolLM2-135M-Instruct-ONNX
-    q8
-    CPU/WASM
+## Why
 
-The q8 model is about 136 MB, versus about 363 MB for the 360M model used in
-v2.6.
+A normal AI assistant should feel ready by default. Users should not need to know
+what an AI model is or manually initialize it.
 
-Additional stability changes:
-- one automatic retry for stream/network/fetch/abort errors
-- 72 max new tokens for creative replies
-- unique script name `app-v2.7.js`
-- factual Wikipedia mode remains unchanged
+## Bandwidth
 
-## Retest
-
-1. Upload every v2.7 file to the GitHub repository root.
-2. Confirm `app-v2.7.js` exists.
-3. Wait for GitHub Pages to redeploy.
-4. Refresh Venus AI.
-5. Click Load Venus AI.
-6. Ask:
-
-       Write a short story about a floating city on Venus.
-
-If the first download stream fails, Venus AI should automatically try once more.
+The local model is roughly 136 MB. The first visit can therefore require a
+noticeable download. Browsers can cache the model assets, so later visits may
+be substantially faster depending on browser cache behavior.
 
 No paid AI API is used.
