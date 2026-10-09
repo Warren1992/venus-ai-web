@@ -1,42 +1,46 @@
-# Venus AI Web Test v2.5 — Cache-Busted WASM
+# Venus AI Web Test v2.6 — Smaller Local AI
 
-The v2.4 screenshot revealed that the browser loaded the new v2.4 HTML but was
-still executing an older cached `app.js`.
+v2.5 finally produced a clean diagnostic:
 
-Evidence:
-- The page displayed the new q8 / CPU-WASM model label from v2.4 HTML.
-- The runtime failure text was the old message:
-  "Close Firefox completely before retrying the local model."
-- That message does not exist in the actual v2.4 WASM loader.
+    Can't create a session.
+    ERROR_CODE: 6
+    ERROR_MESSAGE: std::bad_alloc
 
-Therefore the previous test did not reliably test v2.4's CPU/WASM path.
+That means the browser/runtime could not allocate enough memory to create the
+Qwen3 0.6B q8 inference session.
 
-## v2.5 fix
+## v2.6 change
 
-- Main JavaScript is renamed to `app-v2.5.js`.
-- `index.html` points to that new filename.
-- CSS and manifest references include `?v=2.5`.
-- Document no-cache meta hints are included.
-- The old `app.js` is no longer executed.
-- The actual v2.4 CPU/WASM q8 loader is preserved.
+Creative local AI now uses:
 
-## How to update GitHub
+    onnx-community/SmolLM2-360M-Instruct-ONNX
+    dtype: q8
+    CPU/WASM
 
-Upload ALL v2.5 files to the repository root and overwrite existing files.
-Because `app-v2.5.js` is a new filename, make sure it appears in GitHub after
-the commit.
+The q8 model is roughly 363 MB instead of Qwen3 0.6B q8 at roughly 618 MB.
 
-After GitHub Pages redeploys, refresh the live site.
+To further reduce runtime pressure:
+- max generation length is reduced to 96 new tokens
+- Qwen-specific thinking controls are removed
+- the working factual Wikipedia path is unchanged
+- the script is renamed to `app-v2.6.js` to prevent stale caching
 
-The load progress should literally start with:
+## Retest
 
-    v2.5: Starting Qwen3 0.6B q8 in safe CPU/WASM mode…
+1. Upload all v2.6 files to the GitHub repository root.
+2. Confirm `app-v2.6.js` exists.
+3. Wait for GitHub Pages to redeploy.
+4. Refresh the live site.
+5. Click Load Venus AI.
+6. Ask:
 
-If it fails, the failure description should say:
+       Write a short story about a floating city on Venus.
 
-    v2.5 WASM loader ran, but the local q8 model failed to load.
+If it loads, this becomes the practical free local creative model for the web
+version.
 
-Seeing either phrase proves the browser is running the new JavaScript.
+If even SmolLM2 360M q8 hits `std::bad_alloc`, the next step should be an even
+smaller model or making local creative AI optional only on devices with enough
+browser memory.
 
-Then test:
-    Write a short story about a floating city on Venus.
+No paid AI API is used.
