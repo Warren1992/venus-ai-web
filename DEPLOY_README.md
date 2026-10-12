@@ -1,15 +1,9 @@
-# Lumi AI Web v3.5 — GitHub Pages
+# Lumi AI Web v3.6 — GitHub Pages
 
-Extract this ZIP and upload all files to the root of your GitHub repository.
+1. Extract `Lumi AI Web v3.6.zip`.
+2. Upload **all files** into the root of your GitHub repository, replacing the v3.5 files.
+3. Make sure `index.html`, `style.css`, and `app-v3.6.js` are in the repository root.
+4. Wait for GitHub Pages to redeploy.
+5. Refresh the live site. On mobile, close/reopen the tab if the old cached version appears.
 
-Critical files:
-- index.html
-- style.css
-- app-v3.5.js
-- lumi-hero.jpg
-- icon-180.png
-- icon-192.png
-- icon-512.png
-- manifest.webmanifest
-
-If the old interface remains after deployment, wait for GitHub Pages to finish and refresh again.
+v3.6 keeps the v3.5 Supabase account setup. Follow `SUPABASE_SETUP.md` if you want account sync.

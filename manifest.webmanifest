@@ -1,7 +1,7 @@
 {
   "name": "Lumi AI",
   "short_name": "Lumi",
-  "description": "A playful local AI companion with chat, voice, memory, vision, care, snacks and optional account sync.",
+  "description": "An always-animated local AI companion with chat, voice, memory, vision, care, snacks, and optional account sync.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ece8ff",

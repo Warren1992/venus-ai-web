@@ -7,16 +7,16 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#e9e5ff" />
-  <meta name="description" content="Lumi — a local AI companion with chat, memory, voice, vision, and a playful virtual companion." />
+  <meta name="description" content="Lumi — an animated local AI companion with chat, memory, voice, vision, and a playful virtual companion." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Lumi" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest?v=3.5" />
+  <link rel="manifest" href="./manifest.webmanifest?v=3.6" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <title>Lumi AI</title>
-  <link rel="stylesheet" href="./style.css?v=3.5" />
+  <link rel="stylesheet" href="./style.css?v=3.6" />
 </head>
 <body>
   <div id="app" class="app lumi-app">
@@ -43,8 +43,32 @@
     <main class="main-content">
       <section id="homeView" class="view active lumi-home-view">
         <div class="lumi-home-scroll">
-          <section class="lumi-hero">
-            <img src="./lumi-hero.jpg" alt="Lumi, a glowing original AI companion" />
+          <div class="lumi-alive-chip"><span></span> Lumi is awake</div>
+          <section id="lumiHero" class="lumi-hero" aria-label="Animated Lumi companion">
+            <div class="lumi-scene-motion">
+              <img class="lumi-scene-image" src="./lumi-hero.jpg" alt="Lumi, a glowing original AI companion" />
+            </div>
+
+            <div class="lumi-ambient-glow glow-one"></div>
+            <div class="lumi-ambient-glow glow-two"></div>
+
+            <div class="lumi-sparkles" aria-hidden="true">
+              <i class="spark s1">✦</i>
+              <i class="spark s2">✧</i>
+              <i class="spark s3">✦</i>
+              <i class="spark s4">⋆</i>
+              <i class="spark s5">✧</i>
+              <i class="spark s6">✦</i>
+              <i class="spark s7">⋆</i>
+              <i class="spark s8">✦</i>
+            </div>
+
+            <div class="lumi-face-animation" aria-hidden="true">
+              <span class="lumi-blink blink-left"></span>
+              <span class="lumi-blink blink-right"></span>
+            </div>
+
+            <div id="lumiReactionLayer" class="lumi-reaction-layer" aria-hidden="true"></div>
             <div class="lumi-hero-glow"></div>
           </section>
 
@@ -240,7 +264,7 @@
 
         <div class="settings-card">
           <div class="card-eyebrow">ABOUT</div>
-          <div class="setting-row"><span>Lumi AI</span><strong>Web v3.5</strong></div>
+          <div class="setting-row"><span>Lumi AI</span><strong>Web v3.6</strong></div>
           <p class="about-copy">A playful local AI companion.</p>
         </div>
       </section>
@@ -385,6 +409,6 @@
   <div id="toast" class="toast hidden"></div>
 
   <script src="./supabase-config.js"></script>
-  <script type="module" src="./app-v3.5.js"></script>
+  <script type="module" src="./app-v3.6.js"></script>
 </body>
 </html>

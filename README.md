@@ -1,34 +1,41 @@
-# Lumi AI Web v3.5
+# Lumi AI Web v3.6 — Always-Animated Companion
 
-Lumi AI Web v3.5 redesigns the local AI web app into a playful AI companion.
+v3.6 builds on Lumi AI Web v3.5 and makes Lumi feel continuously alive.
 
-## Home experience
+## Always-on animation
 
-- Lumi companion scene
-- Happiness, Energy and Bond meters
-- Pet, Feed, Talk and Play
-- Snack inventory
-- Star currency
-- Snack shop
-- Fast "Ask Lumi anything" bar
-- Home / Chat / Care / Memories / Shop navigation
+Lumi now continuously:
+- floats and gently sways
+- breathes with a subtle zoom cycle
+- blinks
+- pulses with soft cyan / pink / purple light
+- emits moving sparkles
+- changes ambient glow
+- animates the Happiness / Energy / Bond UI
+- keeps action buttons and snacks subtly moving
 
-## AI features retained
+## Interactive reactions
 
-- local SmolLM2 135M text generation
+- **Pet**: Lumi hops happily and releases hearts/sparkles
+- **Feed**: Lumi wiggles and sparkles
+- **Talk**: Lumi's aura pulses before chat
+- **Play**: Lumi performs a larger playful bounce/sway animation
+- local AI becoming ready also creates a visual glow response
+
+## Existing features retained
+
+- Local SmolLM2 AI chat
 - source-grounded factual answers
-- voice dictation and spoken replies
+- voice input
+- spoken replies
 - photo library
 - take photo
 - live camera vision
-- threads
-- memories
+- Threads
+- Memories
+- Care meters
+- snack inventory
+- star currency / Shop
 - optional Supabase accounts and cross-device sync
 - guest mode
 - no paid AI API required for local inference
-
-## Accounts
-
-Complete `SUPABASE_SETUP.md` and fill in `supabase-config.js` to enable email accounts.
-
-Care stats and snack inventory are stored in the synced settings JSON when signed in.
