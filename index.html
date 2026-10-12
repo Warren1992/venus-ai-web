@@ -6,69 +6,145 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07090d" />
-  <meta name="description" content="Venus AI — private local AI in your browser." />
+  <meta name="theme-color" content="#e9e5ff" />
+  <meta name="description" content="Lumi — a local AI companion with chat, memory, voice, vision, and a playful virtual companion." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Venus AI" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Lumi" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest?v=3.3" />
+  <link rel="manifest" href="./manifest.webmanifest?v=3.5" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
-  <title>Venus AI</title>
-  <link rel="stylesheet" href="./style.css?v=3.3" />
+  <title>Lumi AI</title>
+  <link rel="stylesheet" href="./style.css?v=3.5" />
 </head>
 <body>
-  <div id="app" class="app">
-    <header class="app-header">
-      <button id="brandButton" class="brand-button" type="button" aria-label="Start a new chat">
-        <img class="brand-icon" src="./icon-192.png" alt="" />
-        <span class="brand-copy">
-          <strong>VENUS AI</strong>
-          <small>Private intelligence, on your device</small>
-        </span>
+  <div id="app" class="app lumi-app">
+    <header class="app-header lumi-header">
+      <button id="brandButton" class="brand-button lumi-brand" type="button" aria-label="Go to Lumi home">
+        <span class="lumi-wordmark">Lumi<span>✦</span></span>
       </button>
-      <span id="modelBadge" class="model-badge">STARTING</span>
+      <div class="lumi-header-actions">
+        <span id="modelBadge" class="model-badge">STARTING</span>
+        <button id="topBellButton" class="lumi-round-button" type="button" aria-label="Notifications">🔔</button>
+        <button id="topSettingsButton" class="lumi-round-button" type="button" aria-label="Settings">⚙</button>
+      </div>
     </header>
 
-    <div id="modelStrip" class="model-strip">
+    <div id="modelStrip" class="model-strip lumi-model-strip">
       <div class="model-strip-row">
         <span id="modelStripDot" class="status-dot busy"></span>
-        <span id="modelStripText">Preparing local AI…</span>
+        <span id="modelStripText">Waking Lumi up…</span>
         <button id="modelRetryButton" class="mini-link hidden" type="button">Retry</button>
       </div>
       <div id="modelProgress" class="model-progress"><div id="modelProgressBar"></div></div>
     </div>
 
     <main class="main-content">
-      <section id="chatView" class="view active">
+      <section id="homeView" class="view active lumi-home-view">
+        <div class="lumi-home-scroll">
+          <section class="lumi-hero">
+            <img src="./lumi-hero.jpg" alt="Lumi, a glowing original AI companion" />
+            <div class="lumi-hero-glow"></div>
+          </section>
+
+          <section class="lumi-stats-card" aria-label="Lumi status">
+            <div class="lumi-stat">
+              <div class="stat-icon pink">♥</div>
+              <div class="stat-copy"><strong>Happiness</strong><div class="stat-bar"><span id="happinessBar"></span></div><small id="happinessValue">92%</small></div>
+            </div>
+            <div class="lumi-stat">
+              <div class="stat-icon gold">⚡</div>
+              <div class="stat-copy"><strong>Energy</strong><div class="stat-bar"><span id="energyBar"></span></div><small id="energyValue">78%</small></div>
+            </div>
+            <div class="lumi-stat">
+              <div class="stat-icon purple">★</div>
+              <div class="stat-copy"><strong>Bond</strong><div class="stat-bar"><span id="bondBar"></span></div><small id="bondValue">65%</small></div>
+            </div>
+          </section>
+
+          <section class="lumi-actions-grid">
+            <button class="lumi-action pet" data-care-action="pet" type="button"><span>🫳</span><strong>Pet</strong></button>
+            <button class="lumi-action feed" data-care-action="feed" type="button"><span>🥣</span><strong>Feed</strong></button>
+            <button class="lumi-action talk" data-care-action="talk" type="button"><span>💬</span><strong>Talk</strong></button>
+            <button class="lumi-action play" data-care-action="play" type="button"><span>🎮</span><strong>Play</strong></button>
+          </section>
+
+          <section class="lumi-snacks-card">
+            <div class="lumi-section-title">
+              <strong>🍴 Lumi’s Snacks</strong>
+              <button id="seeAllSnacksButton" type="button">See All ›</button>
+            </div>
+            <div id="snackCarousel" class="snack-carousel">
+              <button class="snack-card selected" data-snack="berry" type="button"><span class="snack-art">🍧</span><small>Berry Puff</small><b id="snackBerryCount">3</b></button>
+              <button class="snack-card" data-snack="apple" type="button"><span class="snack-art">🍏</span><small>Glow Apple</small><b id="snackAppleCount">5</b></button>
+              <button class="snack-card" data-snack="star" type="button"><span class="snack-art">⭐</span><small>Star Treat</small><b id="snackStarCount">4</b></button>
+              <button class="snack-card" data-snack="cocoa" type="button"><span class="snack-art">🍩</span><small>Cocoa Orb</small><b id="snackCocoaCount">2</b></button>
+              <button class="snack-card" data-snack="crystal" type="button"><span class="snack-art">💎</span><small>Moon Crystal</small><b id="snackCrystalCount">6</b></button>
+            </div>
+          </section>
+
+          <form id="homeAskForm" class="lumi-home-ask">
+            <span>✦</span>
+            <input id="homeAskInput" type="text" placeholder="Ask Lumi anything…" autocomplete="off" />
+            <button type="submit" aria-label="Send to Lumi">➤</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="chatView" class="view">
+        <div class="lumi-page-top">
+          <div><h2>Chat with Lumi</h2><p>Your AI companion is ready to talk.</p></div>
+          <button id="threadsButton" class="lumi-round-button" type="button" aria-label="Open threads">☰</button>
+        </div>
         <div id="chatScroll" class="chat-scroll"></div>
 
         <div class="composer-wrap">
           <div id="composerNotice" class="composer-notice hidden"></div>
           <form id="composer" class="composer">
-            <button id="attachButton" class="composer-icon-button" type="button" aria-label="Add attachment">＋</button>
+            <button id="attachButton" class="composer-icon-button" type="button" aria-label="Add image or camera input">＋</button>
             <button id="micButton" class="composer-icon-button" type="button" aria-label="Voice input">🎙</button>
             <button id="voiceButton" class="voice-button" type="button">VOICE</button>
-            <textarea id="prompt" rows="1" placeholder="Ask Venus AI anything…" autocomplete="off"></textarea>
-            <button id="sendButton" class="send-button" type="submit" aria-label="Send">↑</button>
+            <textarea id="prompt" rows="1" placeholder="Ask Lumi anything…" autocomplete="off"></textarea>
+            <button id="sendButton" class="send-button" type="submit" aria-label="Send">➤</button>
           </form>
-          <div class="composer-footer">🔒 Chat generation stays local • photo analysis stays local • thread saved on device</div>
+          <div class="composer-footer">🔒 Local AI • local photo analysis • optional account sync</div>
           <input id="photoLibraryInput" class="hidden-file-input" type="file" accept="image/*" />
           <input id="cameraCaptureInput" class="hidden-file-input" type="file" accept="image/*" capture="environment" />
         </div>
       </section>
 
+      <section id="careView" class="view page-view lumi-care-view">
+        <div class="page-header">
+          <h2>Care</h2>
+          <p>Keep Lumi happy, energized, and close to you.</p>
+        </div>
+        <div class="care-mascot-card">
+          <img src="./lumi-hero.jpg" alt="Lumi" />
+          <div><strong id="careMoodText">Lumi feels wonderful!</strong><small>Spend time together to grow your bond.</small></div>
+        </div>
+        <div class="care-big-stats">
+          <div><span>♥</span><strong id="careHappiness">92%</strong><small>Happiness</small></div>
+          <div><span>⚡</span><strong id="careEnergy">78%</strong><small>Energy</small></div>
+          <div><span>★</span><strong id="careBond">65%</strong><small>Bond</small></div>
+        </div>
+        <div class="care-action-list">
+          <button data-care-action="pet" type="button"><span>🫳</span><div><strong>Pet Lumi</strong><small>Boost happiness and bond</small></div><b>+4 ♥</b></button>
+          <button data-care-action="feed" type="button"><span>🥣</span><div><strong>Feed Lumi</strong><small>Use the selected snack</small></div><b>+10 ⚡</b></button>
+          <button data-care-action="play" type="button"><span>🎮</span><div><strong>Play Together</strong><small>Big bond boost, costs energy</small></div><b>+4 ★</b></button>
+        </div>
+      </section>
+
       <section id="memoryView" class="view page-view">
         <div class="page-header">
-          <h2>Memory</h2>
-          <p>Information Venus keeps locally on this device.</p>
+          <h2>Memories</h2>
+          <p>Things Lumi remembers about you.</p>
         </div>
         <div class="memory-on-card">
           <span class="memory-dot"></span>
           <div>
             <strong>Memory is ON</strong>
-            <p>I’ll remember your preferences to give you better responses.</p>
+            <p>Lumi can use these saved preferences in future conversations.</p>
           </div>
         </div>
         <div class="section-heading">
@@ -82,68 +158,100 @@
         </form>
       </section>
 
+      <section id="shopView" class="view page-view lumi-shop-view">
+        <div class="lumi-shop-header">
+          <div><h2>Lumi’s Shop</h2><p>Pick up snacks for your companion.</p></div>
+          <div class="star-wallet">✦ <strong id="starWallet">120</strong></div>
+        </div>
+        <div class="shop-grid">
+          <button class="shop-item" data-buy-snack="berry" data-cost="10" type="button"><span>🍧</span><strong>Berry Puff</strong><small>+1 snack</small><b>✦ 10</b></button>
+          <button class="shop-item" data-buy-snack="apple" data-cost="8" type="button"><span>🍏</span><strong>Glow Apple</strong><small>+1 snack</small><b>✦ 8</b></button>
+          <button class="shop-item" data-buy-snack="star" data-cost="12" type="button"><span>⭐</span><strong>Star Treat</strong><small>+1 snack</small><b>✦ 12</b></button>
+          <button class="shop-item" data-buy-snack="cocoa" data-cost="9" type="button"><span>🍩</span><strong>Cocoa Orb</strong><small>+1 snack</small><b>✦ 9</b></button>
+          <button class="shop-item" data-buy-snack="crystal" data-cost="15" type="button"><span>💎</span><strong>Moon Crystal</strong><small>+1 snack</small><b>✦ 15</b></button>
+        </div>
+      </section>
+
       <section id="settingsView" class="view page-view">
         <div class="page-header">
           <h2>Settings</h2>
-          <p>Simple, clean, no developer clutter.</p>
+          <p>Account, local AI, voice, privacy, and sync.</p>
+        </div>
+
+        <div class="settings-card" id="accountCard">
+          <div class="card-eyebrow">ACCOUNT</div>
+          <div id="accountSignedOut">
+            <div class="account-intro">
+              <div class="account-avatar">L</div>
+              <div>
+                <strong>Use Lumi on all your devices</strong>
+                <p>Sign in to sync Threads, Memories, care stats, and Settings. AI generation still runs locally.</p>
+              </div>
+            </div>
+            <div id="accountSetupWarning" class="account-setup-warning hidden">
+              Owner setup required: add your Supabase Project URL and publishable key to <code>supabase-config.js</code>.
+            </div>
+            <button id="openAccountButton" class="account-primary-button" type="button">SIGN IN OR CREATE ACCOUNT</button>
+          </div>
+          <div id="accountSignedIn" class="hidden">
+            <div class="account-profile">
+              <div class="account-avatar">L</div>
+              <div class="account-profile-copy">
+                <strong id="accountEmail">Signed in</strong>
+                <small id="accountSyncStatus">Preparing sync…</small>
+              </div>
+            </div>
+            <div class="account-sync-row"><span>Cross-device sync</span><strong id="accountSyncBadge">ON</strong></div>
+            <div class="account-button-grid">
+              <button id="syncNowButton" class="secondary-button" type="button">SYNC NOW</button>
+              <button id="signOutButton" class="secondary-button account-danger-button" type="button">SIGN OUT</button>
+            </div>
+          </div>
         </div>
 
         <div class="settings-card">
           <div class="card-eyebrow">MODEL</div>
-          <div class="setting-row">
-            <span>Local model</span>
-            <strong>SmolLM2 135M Instruct</strong>
-          </div>
-          <div class="setting-row">
-            <span>Status</span>
-            <strong id="settingsModelStatus">Starting…</strong>
-          </div>
+          <div class="setting-row"><span>Local model</span><strong>SmolLM2 135M Instruct</strong></div>
+          <div class="setting-row"><span>Status</span><strong id="settingsModelStatus">Starting…</strong></div>
           <button id="settingsRetryModel" class="secondary-button" type="button">RELOAD LOCAL AI</button>
         </div>
 
         <div class="settings-card">
           <div class="card-eyebrow">FEATURES</div>
           <label class="toggle-row">
-            <span>
-              <strong>Source-grounded facts</strong>
-              <small>Canonical Wikipedia answers for factual questions</small>
-            </span>
+            <span><strong>Source-grounded facts</strong><small>Wikipedia-backed factual answers</small></span>
             <input id="groundingToggle" type="checkbox" checked />
           </label>
           <label class="toggle-row">
-            <span>
-              <strong>Read replies aloud</strong>
-              <small>Uses your device’s system speech voice</small>
-            </span>
+            <span><strong>Read replies aloud</strong><small>Uses your device’s system speech voice</small></span>
             <input id="autoSpeakToggle" type="checkbox" />
           </label>
           <div class="setting-line">💬 Conversation threads <span id="threadCountSetting">0 saved</span></div>
-          <div class="setting-line">🧠 Memory <span id="memoryCountSetting">0 saved</span></div>
+          <div class="setting-line">🧠 Memories <span id="memoryCountSetting">0 saved</span></div>
           <div class="setting-line">🎙 Voice input <span id="voiceSupportSetting">Checking…</span></div>
-          <div class="setting-line">🔊 Read aloud <span>On-device system voice</span></div>
           <div class="setting-line">👁 Photo vision <span id="visionStatusSetting">On demand</span></div>
           <div class="setting-line">📷 Live camera vision <span>Available</span></div>
-          <div class="setting-line">⏰ Local reminders <span>Android app feature • web port next</span></div>
         </div>
 
         <div class="privacy-note">
           <strong>Privacy</strong>
-          <p>Creative text generation, photo analysis, saved threads, and memory stay on this device. Factual questions can query Wikipedia. Browser voice dictation may use your device/browser speech service.</p>
+          <p>AI generation and photo analysis stay on this device. Signed-in users can optionally sync text conversations, Memories, Lumi care stats, and Settings.</p>
         </div>
 
         <div class="settings-card">
           <div class="card-eyebrow">ABOUT</div>
-          <div class="setting-row"><span>VENUS AI</span><strong>Web v3.3</strong></div>
-          <p class="about-copy">Private intelligence, on your device.</p>
+          <div class="setting-row"><span>Lumi AI</span><strong>Web v3.5</strong></div>
+          <p class="about-copy">A playful local AI companion.</p>
         </div>
       </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item active" data-tab="chat" type="button"><span>◯</span><small>Chat</small></button>
-      <button class="nav-item" data-tab="memory" type="button"><span>✦</span><small>Memory</small></button>
-      <button class="nav-item" data-tab="settings" type="button"><span>⚙</span><small>Settings</small></button>
-      <button id="threadsButton" class="nav-item accent" type="button"><span>☰</span><small>Threads</small></button>
+    <nav class="bottom-nav lumi-bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-tab="home" type="button"><span>⌂</span><small>Home</small></button>
+      <button class="nav-item" data-tab="chat" type="button"><span>◯</span><small>Chat</small></button>
+      <button class="nav-item" data-tab="care" type="button"><span>♡</span><small>Care</small></button>
+      <button class="nav-item" data-tab="memory" type="button"><span>▧</span><small>Memories</small></button>
+      <button class="nav-item" data-tab="shop" type="button"><span>♧</span><small>Shop</small></button>
     </nav>
   </div>
 
@@ -159,7 +267,7 @@
       <button id="drawerNewChatButton" class="primary-orange" type="button">NEW CONVERSATION</button>
       <input id="threadSearch" class="thread-search" type="search" placeholder="Search conversations" />
       <div id="threadList" class="thread-list"></div>
-      <div class="drawer-footer">Threads never leave this browser unless you choose to share them.</div>
+      <div class="drawer-footer">Threads stay on this device unless you sign in and sync them.</div>
     </aside>
   </div>
 
@@ -178,7 +286,7 @@
   <div id="liveCameraOverlay" class="live-camera-overlay hidden">
     <div class="live-camera-header">
       <div>
-        <strong>LIVE CAMERA</strong>
+        <strong>LUMI VISION</strong>
         <small id="liveVisionStatus">Camera starting…</small>
       </div>
       <div class="live-camera-header-actions">
@@ -190,11 +298,11 @@
     <div class="live-camera-frame">
       <video id="liveVideo" autoplay playsinline muted></video>
       <canvas id="liveCanvas" class="hidden"></canvas>
-      <div class="live-camera-badge">LOCAL VISION</div>
+      <div class="live-camera-badge">LUMI VISION</div>
     </div>
 
     <div class="live-camera-panel">
-      <textarea id="liveQuestion" rows="2" placeholder="Ask Venus about what the camera sees…">What do you see?</textarea>
+      <textarea id="liveQuestion" rows="2" placeholder="Ask Lumi about what the camera sees…">What do you see?</textarea>
       <div class="live-camera-actions">
         <button id="liveAnalyzeButton" class="primary-orange" type="button">ANALYZE FRAME</button>
         <button id="liveAutoButton" class="live-auto-button" type="button">AUTO SCAN: OFF</button>
@@ -204,18 +312,79 @@
     </div>
   </div>
 
+
+  <div id="accountModalBackdrop" class="account-modal-backdrop hidden">
+    <section class="account-modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+      <div class="account-modal-header">
+        <div>
+          <h2 id="accountModalTitle">Lumi Account</h2>
+          <p id="accountModalSubtitle">Sign in and keep your Lumi data across devices.</p>
+        </div>
+        <button id="closeAccountModal" class="round-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div id="accountAuthTabs" class="account-tabs">
+        <button id="accountSignInTab" class="account-tab active" type="button">SIGN IN</button>
+        <button id="accountSignUpTab" class="account-tab" type="button">CREATE ACCOUNT</button>
+      </div>
+
+      <form id="accountAuthForm" class="account-form">
+        <label>
+          <span>Email</span>
+          <input id="accountEmailInput" type="email" autocomplete="email" required placeholder="you@example.com">
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="accountPasswordInput" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters">
+        </label>
+        <label id="accountConfirmPasswordLabel" class="hidden">
+          <span>Confirm password</span>
+          <input id="accountConfirmPasswordInput" type="password" autocomplete="new-password" minlength="6" placeholder="Type it again">
+        </label>
+
+        <div id="accountMessage" class="account-message hidden"></div>
+
+        <button id="accountSubmitButton" class="account-primary-button" type="submit">SIGN IN</button>
+        <button id="forgotPasswordButton" class="account-link-button" type="button">Forgot password?</button>
+      </form>
+
+      <form id="accountRecoveryForm" class="account-form hidden">
+        <p class="account-helper">Choose a new password for your Lumi account.</p>
+        <label>
+          <span>New password</span>
+          <input id="accountNewPasswordInput" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <label>
+          <span>Confirm new password</span>
+          <input id="accountNewPasswordConfirmInput" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <div id="accountRecoveryMessage" class="account-message hidden"></div>
+        <button class="account-primary-button" type="submit">UPDATE PASSWORD</button>
+      </form>
+
+      <div class="account-privacy">
+        <strong>Local AI stays local.</strong>
+        <span>Your account syncs app data, not AI inference. Photo files remain on the device where you used them.</span>
+      </div>
+    </section>
+  </div>
+
   <div id="voiceOverlay" class="voice-overlay hidden">
     <button id="closeVoiceOverlay" class="voice-close" type="button">×</button>
     <img class="voice-planet" src="./icon-192.png" alt="" />
     <div id="voiceStatusText" class="voice-status">Listening…</div>
     <div class="voice-orb"><div class="voice-ring r1"></div><div class="voice-ring r2"></div><div class="voice-ring r3"></div><span>◉</span></div>
-    <p>Speak naturally. Venus will answer aloud.</p>
+    <p>Speak naturally. Lumi will answer aloud.</p>
     <button id="voiceStopButton" class="voice-stop" type="button">■</button>
     <small>Tap to stop</small>
   </div>
 
   <div id="toast" class="toast hidden"></div>
 
-  <script type="module" src="./app-v3.3.js"></script>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="./supabase-config.js"></script>
+  <script type="module" src="./app-v3.5.js"></script>
 </body>
 </html>

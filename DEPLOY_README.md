@@ -1,15 +1,15 @@
-# Venus AI Web v3.3 Deploy Notes
+# Lumi AI Web v3.5 — GitHub Pages
 
-Upload/replace all files in your existing GitHub Pages repository.
+Extract this ZIP and upload all files to the root of your GitHub repository.
 
-Make sure these are updated:
+Critical files:
 - index.html
 - style.css
-- app-v3.3.js
+- app-v3.5.js
+- lumi-hero.jpg
+- icon-180.png
+- icon-192.png
+- icon-512.png
+- manifest.webmanifest
 
-After GitHub Pages deploys, refresh Venus AI.
-
-Expected behavior:
-- during model loading, the composer stays near the bottom
-- after LOCAL • READY appears, the composer and bottom navigation DO NOT jump upward
-- the Venus icon remains in the empty chat area
+If the old interface remains after deployment, wait for GitHub Pages to finish and refresh again.

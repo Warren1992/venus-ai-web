@@ -1,12 +1,11 @@
 {
-  "name": "Venus AI",
-  "short_name": "Venus AI",
-  "description": "Private local AI with source-grounded facts, memory, voice, photo vision, and live camera vision.",
+  "name": "Lumi AI",
+  "short_name": "Lumi",
+  "description": "A playful local AI companion with chat, voice, memory, vision, care, snacks and optional account sync.",
   "start_url": "./",
-  "scope": "./",
   "display": "standalone",
-  "background_color": "#07090d",
-  "theme_color": "#07090d",
+  "background_color": "#ece8ff",
+  "theme_color": "#e9e5ff",
   "icons": [
     {
       "src": "./icon-192.png",

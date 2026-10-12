@@ -1,36 +1,34 @@
-# Venus AI Web v3.3 — Fixed Bottom Layout
+# Lumi AI Web v3.5
 
-This build fixes the layout jump that happened immediately after the local model finished loading.
+Lumi AI Web v3.5 redesigns the local AI web app into a playful AI companion.
 
-## What was happening
+## Home experience
 
-The app used four CSS grid rows:
+- Lumi companion scene
+- Happiness, Energy and Bond meters
+- Pet, Feed, Talk and Play
+- Snack inventory
+- Star currency
+- Snack shop
+- Fast "Ask Lumi anything" bar
+- Home / Chat / Care / Memories / Shop navigation
 
-1. Header
-2. Model loading strip
-3. Main chat area
-4. Bottom navigation
+## AI features retained
 
-When the model loading strip became hidden, browser grid auto-placement moved the
-main chat and bottom navigation into the wrong rows. The bottom navigation ended
-up occupying the flexible `1fr` row, becoming extremely tall and making the
-composer appear to jump upward toward the Venus icon.
+- local SmolLM2 135M text generation
+- source-grounded factual answers
+- voice dictation and spoken replies
+- photo library
+- take photo
+- live camera vision
+- threads
+- memories
+- optional Supabase accounts and cross-device sync
+- guest mode
+- no paid AI API required for local inference
 
-## v3.3 fix
+## Accounts
 
-The app now uses named grid areas:
+Complete `SUPABASE_SETUP.md` and fill in `supabase-config.js` to enable email accounts.
 
-- `header`
-- `status`
-- `main`
-- `nav`
-
-Each section is permanently assigned to its own area.
-
-When the loading/status strip disappears:
-- its row collapses
-- the main chat area remains the flexible row
-- the composer stays at the bottom of the chat area
-- the bottom navigation stays at its normal height at the bottom of the screen
-
-All v3.2 features are preserved.
+Care stats and snack inventory are stored in the synced settings JSON when signed in.

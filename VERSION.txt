@@ -1,1 +1,1 @@
-Venus AI Web v3.3 - Fixed Bottom Layout After Model Load
+Lumi AI Web v3.5 - AI Companion Redesign
