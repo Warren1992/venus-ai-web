@@ -1,41 +1,19 @@
-# Lumi AI Web v3.6 — Always-Animated Companion
+# Lumi AI Web v3.7 — True Layered Character Rig
 
-v3.6 builds on Lumi AI Web v3.5 and makes Lumi feel continuously alive.
+v3.7 replaces the fake moving-photo animation with an actual layered Lumi character.
 
-## Always-on animation
+## What is different
 
-Lumi now continuously:
-- floats and gently sways
-- breathes with a subtle zoom cycle
-- blinks
-- pulses with soft cyan / pink / purple light
-- emits moving sparkles
-- changes ambient glow
-- animates the Happiness / Energy / Bond UI
-- keeps action buttons and snacks subtly moving
+The room/background stays still. Lumi is assembled from separate transparent art layers:
+- core body + visor
+- top flame/tuft
+- left arm
+- right arm
+- lower tail swirl
+- open-eye layer
+- blink-eye layer
+- aura/glow effect (CSS light only — no static Lumi silhouette)
 
-## Interactive reactions
+Each layer has its own transform origin and animation. Lumi continuously floats, breathes, blinks, looks around, waves both arms, sways the tuft, curls the tail, and pulses the aura. Small autonomous gestures also occur periodically. Pet, Feed, Talk, and Play trigger stronger part-by-part reactions.
 
-- **Pet**: Lumi hops happily and releases hearts/sparkles
-- **Feed**: Lumi wiggles and sparkles
-- **Talk**: Lumi's aura pulses before chat
-- **Play**: Lumi performs a larger playful bounce/sway animation
-- local AI becoming ready also creates a visual glow response
-
-## Existing features retained
-
-- Local SmolLM2 AI chat
-- source-grounded factual answers
-- voice input
-- spoken replies
-- photo library
-- take photo
-- live camera vision
-- Threads
-- Memories
-- Care meters
-- snack inventory
-- star currency / Shop
-- optional Supabase accounts and cross-device sync
-- guest mode
-- no paid AI API required for local inference
+All v3.6 app features are retained: local AI chat, source-grounded facts, voice, photo/live-camera vision, care, snacks, stars, memories, threads, shop, optional Supabase accounts, and account sync.

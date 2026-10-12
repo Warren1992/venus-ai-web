@@ -1,9 +1,10 @@
-# Lumi AI Web v3.6 — GitHub Pages
+# Uploading Lumi AI Web v3.7 to GitHub Pages
 
-1. Extract `Lumi AI Web v3.6.zip`.
-2. Upload **all files** into the root of your GitHub repository, replacing the v3.5 files.
-3. Make sure `index.html`, `style.css`, and `app-v3.6.js` are in the repository root.
-4. Wait for GitHub Pages to redeploy.
-5. Refresh the live site. On mobile, close/reopen the tab if the old cached version appears.
+1. Extract the ZIP.
+2. Upload **all files and folders** into the root of the GitHub repository, replacing the older Lumi files.
+3. Important: upload the new `assets` folder too. It contains the individual animated Lumi body layers.
+4. Confirm `index.html`, `style.css`, `app-v3.7.js`, and `assets/lumi-rig/` are present.
+5. Wait for GitHub Pages to redeploy.
+6. On a phone, close/reopen the page or clear the old site cache if v3.6 still appears.
 
-v3.6 keeps the v3.5 Supabase account setup. Follow `SUPABASE_SETUP.md` if you want account sync.
+No extra animation library is required. The character rig runs with normal HTML/CSS/JavaScript.

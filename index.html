@@ -7,16 +7,16 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#e9e5ff" />
-  <meta name="description" content="Lumi — an animated local AI companion with chat, memory, voice, vision, and a playful virtual companion." />
+  <meta name="description" content="Lumi — a fully rigged animated local AI companion with chat, memory, voice, vision, and a playful virtual companion." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Lumi" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest?v=3.6" />
+  <link rel="manifest" href="./manifest.webmanifest?v=3.7" />
   <link rel="apple-touch-icon" href="./icon-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <title>Lumi AI</title>
-  <link rel="stylesheet" href="./style.css?v=3.6" />
+  <link rel="stylesheet" href="./style.css?v=3.7" />
 </head>
 <body>
   <div id="app" class="app lumi-app">
@@ -44,30 +44,34 @@
       <section id="homeView" class="view active lumi-home-view">
         <div class="lumi-home-scroll">
           <div class="lumi-alive-chip"><span></span> Lumi is awake</div>
-          <section id="lumiHero" class="lumi-hero" aria-label="Animated Lumi companion">
-            <div class="lumi-scene-motion">
-              <img class="lumi-scene-image" src="./lumi-hero.jpg" alt="Lumi, a glowing original AI companion" />
+          <section id="lumiHero" class="lumi-hero lumi-rig-hero" aria-label="Lumi, a continuously animated AI companion">
+            <div class="lumi-room" aria-hidden="true">
+              <div class="room-window"><span class="room-star rs1">✦</span><span class="room-star rs2">✧</span><span class="room-star rs3">✦</span><span class="room-star rs4">⋆</span><i class="cloud c1"></i><i class="cloud c2"></i></div>
+              <div class="room-shelf shelf-one"><i></i><i></i><i></i><i></i></div>
+              <div class="room-shelf shelf-two"><i></i><i></i><i></i></div>
+              <div class="room-plant"><b></b><b></b><b></b><b></b><span></span></div>
+              <div class="room-rug"></div>
             </div>
 
-            <div class="lumi-ambient-glow glow-one"></div>
-            <div class="lumi-ambient-glow glow-two"></div>
+            <div id="lumiRig" class="lumi-rig" aria-hidden="true">
+              <div class="lumi-rig-aura"></div>
+              <div class="lumi-character-float">
+                <img class="lumi-part lumi-tail" src="./assets/lumi-rig/tail.png" alt="" />
+                <img class="lumi-part lumi-tuft" src="./assets/lumi-rig/tuft.png" alt="" />
+                <img class="lumi-part lumi-arm lumi-arm-left" src="./assets/lumi-rig/arm-left.png" alt="" />
+                <img class="lumi-part lumi-arm lumi-arm-right" src="./assets/lumi-rig/arm-right.png" alt="" />
+                <img class="lumi-part lumi-core" src="./assets/lumi-rig/core.png" alt="" />
+                <div class="lumi-eye-rig">
+                  <img class="lumi-eyes lumi-eyes-open" src="./assets/lumi-rig/eyes-open.png" alt="" />
+                  <img class="lumi-eyes lumi-eyes-blink" src="./assets/lumi-rig/eyes-blink.png" alt="" />
+                </div>
+              </div>
+            </div>
 
             <div class="lumi-sparkles" aria-hidden="true">
-              <i class="spark s1">✦</i>
-              <i class="spark s2">✧</i>
-              <i class="spark s3">✦</i>
-              <i class="spark s4">⋆</i>
-              <i class="spark s5">✧</i>
-              <i class="spark s6">✦</i>
-              <i class="spark s7">⋆</i>
-              <i class="spark s8">✦</i>
+              <i class="spark s1">✦</i><i class="spark s2">✧</i><i class="spark s3">✦</i><i class="spark s4">⋆</i>
+              <i class="spark s5">✧</i><i class="spark s6">✦</i><i class="spark s7">⋆</i><i class="spark s8">✦</i>
             </div>
-
-            <div class="lumi-face-animation" aria-hidden="true">
-              <span class="lumi-blink blink-left"></span>
-              <span class="lumi-blink blink-right"></span>
-            </div>
-
             <div id="lumiReactionLayer" class="lumi-reaction-layer" aria-hidden="true"></div>
             <div class="lumi-hero-glow"></div>
           </section>
@@ -144,7 +148,16 @@
           <p>Keep Lumi happy, energized, and close to you.</p>
         </div>
         <div class="care-mascot-card">
-          <img src="./lumi-hero.jpg" alt="Lumi" />
+          <div class="lumi-mini-rig" aria-label="Animated Lumi">
+            <div class="mini-character-float">
+              <img class="lumi-part lumi-tail" src="./assets/lumi-rig/tail.png" alt="" />
+              <img class="lumi-part lumi-tuft" src="./assets/lumi-rig/tuft.png" alt="" />
+              <img class="lumi-part lumi-arm lumi-arm-left" src="./assets/lumi-rig/arm-left.png" alt="" />
+              <img class="lumi-part lumi-arm lumi-arm-right" src="./assets/lumi-rig/arm-right.png" alt="" />
+              <img class="lumi-part lumi-core" src="./assets/lumi-rig/core.png" alt="" />
+              <div class="lumi-eye-rig"><img class="lumi-eyes lumi-eyes-open" src="./assets/lumi-rig/eyes-open.png" alt="" /><img class="lumi-eyes lumi-eyes-blink" src="./assets/lumi-rig/eyes-blink.png" alt="" /></div>
+            </div>
+          </div>
           <div><strong id="careMoodText">Lumi feels wonderful!</strong><small>Spend time together to grow your bond.</small></div>
         </div>
         <div class="care-big-stats">
@@ -409,6 +422,6 @@
   <div id="toast" class="toast hidden"></div>
 
   <script src="./supabase-config.js"></script>
-  <script type="module" src="./app-v3.6.js"></script>
+  <script type="module" src="./app-v3.7.js"></script>
 </body>
 </html>
