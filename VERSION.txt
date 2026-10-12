@@ -1,1 +1,2 @@
-Lumi AI Web v3.7 - True Layered Character Rig
+Lumi AI Web v3.7.2
+Rig alignment fix for segmented Lumi animation.

@@ -1,4 +1,4 @@
-# Lumi AI Web v3.7 — True Layered Character Rig
+# Lumi AI Web v3.7.2 — True Layered Character Rig
 
 v3.7 replaces the fake moving-photo animation with an actual layered Lumi character.
 
